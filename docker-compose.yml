@@ -1,0 +1,36 @@
+version: '3.8'
+
+networks:
+    default:
+        driver: bridge
+
+services:
+  db:
+    container_name: postgres-db
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=delivery-merchant
+    ports:
+      - "5432:5432"
+    volumes:
+      - delivery-merchant-api:/var/lib/postgresql/data
+      
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack_main
+    ports:
+      - "4566:4566"  
+      - "4571:4571" 
+    environment:
+      - SERVICES=sqs
+      - DEFAULT_REGION=us-east-1
+      - DEBUG=1
+    volumes:
+      - ./localstack-init:/docker-entrypoint-initaws.d
+
+volumes:
+  delivery-merchant-api:
+  localstack-data:
+    driver: local

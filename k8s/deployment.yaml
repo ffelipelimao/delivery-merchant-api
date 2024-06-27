@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery-merchant-api-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: delivery-merchant-api-deploy
+  template:
+    metadata:
+      labels:
+        app: delivery-merchant-api-deploy
+    spec:
+      containers:
+      - name: delivery-merchant-api-container
+        image: DOCKER_IMAGE
+        ports:
+        - containerPort: 8080

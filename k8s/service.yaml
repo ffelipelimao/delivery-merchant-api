@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: delivery-merchant-api-svc
+spec:
+  selector:
+    app: delivery-merchant-api-deploy
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: LoadBalancer
